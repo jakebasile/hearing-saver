@@ -6,7 +6,8 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
 	<application
 		android:icon="@drawable/launcher_icon"
-		android:label="@string/app_name">
+		android:label="@string/app_name"
+		android:theme="@android:style/Theme.Light">
 		<activity
 			android:name="SetupActivity">
 			<intent-filter>
@@ -29,7 +30,7 @@
 			android:name="UnplugReceiver"></receiver>
 	</application>
 	<uses-sdk
-		android:minSdkVersion="7"/>
+		android:minSdkVersion="6"/>
 	<uses-permission
 		android:name="android.permission.MODIFY_AUDIO_SETTINGS"></uses-permission>
 	<uses-permission
