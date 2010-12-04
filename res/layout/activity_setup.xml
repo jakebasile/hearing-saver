@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:padding="8dp">
+	<TextView
+		android:id="@+id/activity_setup_textplugged"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:text="@string/textplugged_text"/>
+	<SeekBar
+		android:id="@+id/activity_setup_seekplugged"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/activity_setup_textplugged"
+		android:padding="10dp"
+		android:max="100"/>
+	<TextView
+		android:id="@+id/activity_setup_textunplugged"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/activity_setup_seekplugged"
+		android:text="@string/textunplugged_text"/>
+	<SeekBar
+		android:id="@+id/activity_setup_seekunplugged"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/activity_setup_textunplugged"
+		android:padding="10dp"
+		android:max="100"/>
+	<Button
+		android:id="@+id/activity_setup_okbutton"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:text="@string/set_levels_and_exit"></Button>
+</RelativeLayout>
