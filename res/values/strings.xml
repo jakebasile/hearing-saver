@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+	<!-- 
    Copyright 2010 Jake Basile
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,13 +16,15 @@
 -->
 <resources>
 	<string
+		name="mute_ringer_and_notifications">Mute Ringer and Notifications</string>
+	<string
 		name="app_description">Automatically resets media volume to a predetermined level when the headset is plugged or unplugged.</string>
 	<string
 		name="textplugged_text">Volume to set when headphone jack is plugged:</string>
 	<string
 		name="textunplugged_text">Volume to set when headphone jack is unplugged:</string>
 	<string
-		name="set_levels_and_exit">Set Levels and Exit</string>
+		name="set_levels">Set Levels</string>
 	<string
 		name="app_name">Hearing Saver</string>
 </resources>

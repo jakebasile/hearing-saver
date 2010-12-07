@@ -19,6 +19,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -47,6 +48,11 @@ public class UnplugReceiver extends BroadcastReceiver
 			{
 				am.setStreamVolume(AudioManager.STREAM_MUSIC, (int)(maxVol * unplugged),
 					AudioManager.FLAG_SHOW_UI);
+				if(prefs.getBoolean("muteWhenPlugged", false))
+				{
+					int oldMode = prefs.getInt("oldRinger", AudioManager.RINGER_MODE_NORMAL);
+					am.setRingerMode(oldMode);
+				}
 				break;
 			}
 			// plugged in
@@ -54,6 +60,14 @@ public class UnplugReceiver extends BroadcastReceiver
 			{
 				am.setStreamVolume(AudioManager.STREAM_MUSIC, (int)(maxVol * plugged),
 					AudioManager.FLAG_SHOW_UI);
+				if(prefs.getBoolean("muteWhenPlugged", false))
+				{
+					int currentMode = am.getRingerMode();
+					Editor edit = prefs.edit();
+					edit.putInt("oldRinger", currentMode);
+					edit.commit();
+					am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+				}
 				break;
 			}
 		}
