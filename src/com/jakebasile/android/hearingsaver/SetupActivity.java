@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -61,6 +62,14 @@ public final class SetupActivity extends Activity
 				editPrefs.putFloat("unplugged", unpluggedBar.getProgress() / 100f);
 				editPrefs.putBoolean("muteWhenPlugged", muteBox.isChecked());
 				editPrefs.commit();
+				finish();
+			}
+		});
+		builder.setOnCancelListener(new OnCancelListener()
+		{
+			@Override
+			public void onCancel(DialogInterface dialog)
+			{
 				finish();
 			}
 		});
