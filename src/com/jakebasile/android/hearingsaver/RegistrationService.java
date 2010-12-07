@@ -19,6 +19,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.util.Log;
 
 /**
  * This service stays running to keep the UnplugReceiver registered for the headset unplug
@@ -36,7 +37,16 @@ public class RegistrationService extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		this.registerReceiver(new UnplugReceiver(), new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+		Log.d("Hearing Saver", "Registering receiver");
+		registerReceiver(UnplugReceiver.getInstance(), new IntentFilter(Intent.ACTION_HEADSET_PLUG));
 		return Service.START_STICKY;
+	}
+
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
+		Log.d("Hearing Saver", "Unregistering receiver");
+		unregisterReceiver(UnplugReceiver.getInstance());
 	}
 }

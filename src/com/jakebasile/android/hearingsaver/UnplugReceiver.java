@@ -31,6 +31,21 @@ import android.util.Log;
  */
 public class UnplugReceiver extends BroadcastReceiver
 {
+	private UnplugReceiver()
+	{
+	}
+
+	private static UnplugReceiver instance;
+
+	public static UnplugReceiver getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new UnplugReceiver();
+		}
+		return instance;
+	}
+
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
@@ -51,6 +66,7 @@ public class UnplugReceiver extends BroadcastReceiver
 				if(prefs.getBoolean("muteWhenPlugged", false))
 				{
 					int oldMode = prefs.getInt("oldRinger", AudioManager.RINGER_MODE_NORMAL);
+					Log.d("Hearing Saver", "oldMode = " + oldMode);
 					am.setRingerMode(oldMode);
 				}
 				break;
@@ -63,6 +79,7 @@ public class UnplugReceiver extends BroadcastReceiver
 				if(prefs.getBoolean("muteWhenPlugged", false))
 				{
 					int currentMode = am.getRingerMode();
+					Log.d("Hearing Saver", "currentMode = " + currentMode);
 					Editor edit = prefs.edit();
 					edit.putInt("oldRinger", currentMode);
 					edit.commit();
