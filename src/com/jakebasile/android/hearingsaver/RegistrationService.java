@@ -28,6 +28,8 @@ import android.util.Log;
  */
 public class RegistrationService extends Service
 {
+	private UnplugReceiver receiver;
+
 	@Override
 	public IBinder onBind(Intent arg0)
 	{
@@ -37,8 +39,9 @@ public class RegistrationService extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
+		receiver = UnplugReceiver.getInstance();
 		Log.d("Hearing Saver", "Registering receiver");
-		registerReceiver(UnplugReceiver.getInstance(), new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+		registerReceiver(receiver, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
 		return Service.START_STICKY;
 	}
 
@@ -47,6 +50,9 @@ public class RegistrationService extends Service
 	{
 		super.onDestroy();
 		Log.d("Hearing Saver", "Unregistering receiver");
-		unregisterReceiver(UnplugReceiver.getInstance());
+		// Be sure and unregister the receiver when the service is destroyed. This usually means
+		// the service is being killed by the system, and it will be restarted again momentarily.
+		// if we don't unregister, sometimes multiple instances of the receiver get registered.
+		unregisterReceiver(receiver);
 	}
 }
