@@ -31,11 +31,13 @@ import android.util.Log;
  */
 public class UnplugReceiver extends BroadcastReceiver
 {
+	private static UnplugReceiver instance;
+
+	private boolean isFirst;
+
 	private UnplugReceiver()
 	{
 	}
-
-	private static UnplugReceiver instance;
 
 	public static UnplugReceiver getInstance()
 	{
@@ -43,50 +45,66 @@ public class UnplugReceiver extends BroadcastReceiver
 		{
 			instance = new UnplugReceiver();
 		}
+		instance.isFirst = true;
 		return instance;
 	}
 
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		int state = intent.getIntExtra("state", -1);
-		Log.d("Hearing Saver", "state = " + state);
-		AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-		int maxVol = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		float plugged = prefs.getFloat("plugged", .25f);
-		float unplugged = prefs.getFloat("unplugged", 0);
-		switch(state)
+		// This receiver (I think erroneously) gets called when it is registered. This means that
+		// when the user starts the service for the first time, reboots, or when the service is destroyed
+		// and restarted by the system, their volume will be set. Aside from being unintended behavior,
+		// it also causes their "old mode" to be overwritten, which means that if they are already
+		// plugged in (and the ringer is muted), their old mode will be saved as silent and the ringer will
+		// *not* be turned back on when they unplug. To prevent this, I'm using a member variable to record
+		// if it is the first try or not.
+		if(!isFirst)
 		{
-			// unplugged.
-			case 0:
+			int state = intent.getIntExtra("state", -1);
+			Log.d("Hearing Saver", "state = " + state);
+			AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+			int maxVol = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+			float plugged = prefs.getFloat("plugged", .25f);
+			float unplugged = prefs.getFloat("unplugged", 0);
+			switch(state)
 			{
-				am.setStreamVolume(AudioManager.STREAM_MUSIC, (int)(maxVol * unplugged),
-					AudioManager.FLAG_SHOW_UI);
-				if(prefs.getBoolean("muteWhenPlugged", false))
+				// unplugged.
+				case 0:
 				{
-					int oldMode = prefs.getInt("oldRinger", AudioManager.RINGER_MODE_NORMAL);
-					Log.d("Hearing Saver", "oldMode = " + oldMode);
-					am.setRingerMode(oldMode);
+					am.setStreamVolume(AudioManager.STREAM_MUSIC, (int)(maxVol * unplugged),
+						AudioManager.FLAG_SHOW_UI);
+					if(prefs.getBoolean("muteWhenPlugged", false))
+					{
+						int oldMode = prefs.getInt("oldRinger", AudioManager.RINGER_MODE_NORMAL);
+						Log.d("Hearing Saver", "oldMode = " + oldMode);
+						am.setRingerMode(oldMode);
+					}
+					break;
 				}
-				break;
-			}
-			// plugged in
-			case 1:
-			{
-				am.setStreamVolume(AudioManager.STREAM_MUSIC, (int)(maxVol * plugged),
-					AudioManager.FLAG_SHOW_UI);
-				if(prefs.getBoolean("muteWhenPlugged", false))
+				// plugged in
+				case 1:
 				{
-					int currentMode = am.getRingerMode();
-					Log.d("Hearing Saver", "currentMode = " + currentMode);
-					Editor edit = prefs.edit();
-					edit.putInt("oldRinger", currentMode);
-					edit.commit();
-					am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+					am.setStreamVolume(AudioManager.STREAM_MUSIC, (int)(maxVol * plugged),
+						AudioManager.FLAG_SHOW_UI);
+					if(prefs.getBoolean("muteWhenPlugged", false))
+					{
+						int currentMode = am.getRingerMode();
+						Log.d("Hearing Saver", "currentMode = " + currentMode);
+						Editor edit = prefs.edit();
+						edit.putInt("oldRinger", currentMode);
+						edit.commit();
+						am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+					}
+					break;
 				}
-				break;
 			}
+		}
+		else
+		{
+			Log.d("Hearing Saver", "First run receieved.");
+			isFirst = false;
 		}
 	}
 }
