@@ -15,3 +15,6 @@ After setting it up, theres nothing more you need to do. The app will run a smal
 
 ##Issues
 To report an issue, you can [email me](http://www.google.com/recaptcha/mailhide/d?k=011BdB4u1pCLhbUGkJmJVitQ==&c=p-7aRIWqHdpoJP_GrxXH6linWktSJeucW28Fjrj1RSI=) to try to solve it or create a new [issue](http://code.jakebasile.com/hearing-saver/issues) - after checking to see that it isn't already there. I will try to fix it soon, but please consider that this project is not my day job. If you really want something fixed and you know how to code, you can try doing it yourself and getting into contact with me to add in your changes.
+
+##A Brief Note on Convoluted Changelogs
+I also started this project to teach myself how to use a DVCS such as Mercurial. I have no experience with these and have made some mistakes. Try to ignore them and let me sweep them under the rug, ok?
