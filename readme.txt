@@ -1,7 +1,7 @@
 <!-- -*- markdown -*- -->
 #Hearing Saver Readme
 
-Thanks for checking out **Hearing Saver**. I wrote this app because many times I drive into work listening to music at full volume, only to end up hurting my ears when I forget to turn the colume back down for my headphones at my desk. If this happens to you, I hope this app will be able to ease your pain. If you notice something wrong, please tell me and I will try and fix it; or you can even take a look at the code and submit a patch yourself.
+Thanks for checking out **Hearing Saver**. I wrote this app because many times I drive into work listening to music at full volume, only to end up hurting my ears when I forget to turn the colume back down for my headphones at my desk. If this happens to you, I hope this app will be able to ease your pain. If you notice something wrong, please tell me and I will try and fix it; or you can even take a look at the code and submit a patch yourself. 
 
 The app is available to download from the Android Market by searching for "Hearing Saver", or by [direct download](http://code.jakebasile.com/hearing-saver/downloads/hearing-saver.apk).
 
