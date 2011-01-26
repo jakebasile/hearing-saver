@@ -39,7 +39,7 @@ public final class SetupActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		Intent serviceIntent = new Intent();
+		final Intent serviceIntent = new Intent();
 		serviceIntent.setClassName(getPackageName(), RegistrationService.class.getName());
 		startService(serviceIntent);
 		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(SetupActivity.this);
@@ -51,6 +51,8 @@ public final class SetupActivity extends Activity
 		unpluggedBar.setProgress((int)(prefs.getFloat("unplugged", 0) * 100));
 		final CheckBox muteBox = (CheckBox)dialogLayout.findViewById(R.id.activity_setup_checkmute);
 		muteBox.setChecked(prefs.getBoolean("muteWhenPlugged", false));
+		final CheckBox hackButton = (CheckBox)dialogLayout.findViewById(R.id.activity_setup_checkkludge);
+		hackButton.setChecked(prefs.getBoolean("hack", false));
 		builder.setView(dialogLayout);
 		builder.setPositiveButton(R.string.set_levels, new OnClickListener()
 		{
@@ -61,8 +63,10 @@ public final class SetupActivity extends Activity
 				editPrefs.putFloat("plugged", pluggedBar.getProgress() / 100f);
 				editPrefs.putFloat("unplugged", unpluggedBar.getProgress() / 100f);
 				editPrefs.putBoolean("muteWhenPlugged", muteBox.isChecked());
+				editPrefs.putBoolean("hack", hackButton.isChecked());
 				editPrefs.commit();
 				finish();
+				startService(serviceIntent);
 			}
 		});
 		builder.setOnCancelListener(new OnCancelListener()
