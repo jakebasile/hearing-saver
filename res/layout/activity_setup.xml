@@ -41,7 +41,7 @@
 		android:id="@+id/activity_setup_textunplugged"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="30dp"
+		android:layout_marginTop="10dp"
 		style="@android:style/TextAppearance.Medium"
 		android:text="@string/textunplugged_text"/>
 	<SeekBar
@@ -50,4 +50,9 @@
 		android:layout_height="wrap_content"
 		android:padding="10dp"
 		android:max="100"/>
+	<CheckBox
+		android:layout_width="wrap_content"
+		android:id="@+id/activity_setup_checkkludge"
+		android:layout_height="wrap_content"
+		android:text="@string/make_service_foreground"/>
 </LinearLayout>
