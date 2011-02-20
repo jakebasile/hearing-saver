@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-	<!-- 
+<!-- 
    Copyright 2010 Jake Basile
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,8 +15,10 @@
    limitations under the License.
 -->
 <resources>
-    <string name="make_service_foreground">Make Service Foreground</string>
-    <string name="hearing_saver_is_running">Hearing Saver is Running</string>
+	<string
+		name="make_service_foreground">Make Service Foreground</string>
+	<string
+		name="hearing_saver_is_running">Hearing Saver is Running</string>
 	<string
 		name="mute_ringer_and_notifications">Mute Ringer and Notifications</string>
 	<string
