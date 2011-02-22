@@ -19,12 +19,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
@@ -42,30 +39,27 @@ public final class SetupActivity extends Activity
 		final Intent serviceIntent = new Intent();
 		serviceIntent.setClassName(getPackageName(), RegistrationService.class.getName());
 		startService(serviceIntent);
-		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(SetupActivity.this);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		View dialogLayout = getLayoutInflater().inflate(R.layout.activity_setup, null);
 		final SeekBar pluggedBar = (SeekBar)dialogLayout.findViewById(R.id.activity_setup_seekplugged);
-		pluggedBar.setProgress((int)(prefs.getFloat("plugged", .25f) * 100));
 		final SeekBar unpluggedBar = (SeekBar)dialogLayout.findViewById(R.id.activity_setup_seekunplugged);
-		unpluggedBar.setProgress((int)(prefs.getFloat("unplugged", 0) * 100));
 		final CheckBox muteBox = (CheckBox)dialogLayout.findViewById(R.id.activity_setup_checkmute);
-		muteBox.setChecked(prefs.getBoolean("muteWhenPlugged", false));
 		final CheckBox hackButton = (CheckBox)dialogLayout.findViewById(R.id.activity_setup_checkkludge);
-		hackButton.setChecked(prefs.getBoolean("hack", false));
+		final VolumeSettings settings = new VolumeSettings(this);
+		pluggedBar.setProgress((int)(settings.getPluggedLevel() * 100));
+		unpluggedBar.setProgress((int)(settings.getUnpluggedLevel() * 100));
+		muteBox.setChecked(settings.getMuteOnPlug());
+		hackButton.setChecked(settings.getGBreadWorkaround());
 		builder.setView(dialogLayout);
 		builder.setPositiveButton(R.string.set_levels, new OnClickListener()
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				Editor editPrefs = prefs.edit();
-				editPrefs.putFloat("plugged", pluggedBar.getProgress() / 100f);
-				editPrefs.putFloat("unplugged", unpluggedBar.getProgress() / 100f);
-				editPrefs.putBoolean("muteWhenPlugged", muteBox.isChecked());
-				editPrefs.putBoolean("hack", hackButton.isChecked());
-				editPrefs.commit();
-				finish();
+				settings.setPluggedLevel(pluggedBar.getProgress() / 100f);
+				settings.setUnpluggedLevel(unpluggedBar.getProgress() / 100f);
+				settings.setMuteOnPlug(muteBox.isChecked());
+				settings.setGBreadWorkaround(hackButton.isChecked());
 				startService(serviceIntent);
 			}
 		});
