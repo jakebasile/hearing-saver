@@ -18,11 +18,7 @@ package com.jakebasile.android.hearingsaver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
-import android.preference.PreferenceManager;
-import android.util.Log;
 
 /**
  * Handles the Headset Plug broadcast action. Cannot be registered in the manifest but must be
@@ -52,7 +48,7 @@ public class UnplugReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		// This receiver (I think erroneously) gets called when it is registered. This means that
+		// This receiver gets called when it is registered. This means that
 		// when the user starts the service for the first time, reboots, or when the service is destroyed
 		// and restarted by the system, their volume will be set. Aside from being unintended behavior,
 		// it also causes their "old mode" to be overwritten, which means that if they are already
@@ -62,39 +58,30 @@ public class UnplugReceiver extends BroadcastReceiver
 		if(!isFirst)
 		{
 			int state = intent.getIntExtra("state", -1);
-			Log.d("Hearing Saver", "state = " + state);
 			AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 			int maxVol = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-			float plugged = prefs.getFloat("plugged", .25f);
-			float unplugged = prefs.getFloat("unplugged", 0);
+			VolumeSettings settings = new VolumeSettings(context);
 			switch(state)
 			{
 				// unplugged.
 				case 0:
 				{
-					am.setStreamVolume(AudioManager.STREAM_MUSIC, (int)(maxVol * unplugged),
-						AudioManager.FLAG_SHOW_UI);
-					if(prefs.getBoolean("muteWhenPlugged", false))
+					int newVol = (int)(maxVol * settings.getUnpluggedLevel());
+					am.setStreamVolume(AudioManager.STREAM_MUSIC, newVol, AudioManager.FLAG_SHOW_UI);
+					if(settings.getMuteOnPlug())
 					{
-						int oldMode = prefs.getInt("oldRinger", AudioManager.RINGER_MODE_NORMAL);
-						Log.d("Hearing Saver", "oldMode = " + oldMode);
-						am.setRingerMode(oldMode);
+						am.setRingerMode(settings.getRinger());
 					}
 					break;
 				}
 				// plugged in
 				case 1:
 				{
-					am.setStreamVolume(AudioManager.STREAM_MUSIC, (int)(maxVol * plugged),
-						AudioManager.FLAG_SHOW_UI);
-					if(prefs.getBoolean("muteWhenPlugged", false))
+					int newVol = (int)(maxVol * settings.getPluggedLevel());
+					am.setStreamVolume(AudioManager.STREAM_MUSIC, newVol, AudioManager.FLAG_SHOW_UI);
+					if(settings.getMuteOnPlug())
 					{
-						int currentMode = am.getRingerMode();
-						Log.d("Hearing Saver", "currentMode = " + currentMode);
-						Editor edit = prefs.edit();
-						edit.putInt("oldRinger", currentMode);
-						edit.commit();
+						settings.setRinger(am.getRingerMode());
 						am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
 					}
 					break;
@@ -103,7 +90,6 @@ public class UnplugReceiver extends BroadcastReceiver
 		}
 		else
 		{
-			Log.d("Hearing Saver", "First run receieved.");
 			isFirst = false;
 		}
 	}
