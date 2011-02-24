@@ -61,6 +61,7 @@ public final class SetupActivity extends Activity
 				settings.setMuteOnPlug(muteBox.isChecked());
 				settings.setGBreadWorkaround(hackButton.isChecked());
 				startService(serviceIntent);
+				finish();
 			}
 		});
 		builder.setOnCancelListener(new OnCancelListener()
