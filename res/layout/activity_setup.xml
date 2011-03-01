@@ -50,9 +50,4 @@
 		android:layout_height="wrap_content"
 		android:padding="10dp"
 		android:max="100"/>
-	<CheckBox
-		android:layout_width="wrap_content"
-		android:id="@+id/activity_setup_checkkludge"
-		android:layout_height="wrap_content"
-		android:text="@string/make_service_foreground"/>
 </LinearLayout>
