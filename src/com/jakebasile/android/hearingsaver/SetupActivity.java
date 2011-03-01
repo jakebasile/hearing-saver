@@ -44,12 +44,10 @@ public final class SetupActivity extends Activity
 		final SeekBar pluggedBar = (SeekBar)dialogLayout.findViewById(R.id.activity_setup_seekplugged);
 		final SeekBar unpluggedBar = (SeekBar)dialogLayout.findViewById(R.id.activity_setup_seekunplugged);
 		final CheckBox muteBox = (CheckBox)dialogLayout.findViewById(R.id.activity_setup_checkmute);
-		final CheckBox hackButton = (CheckBox)dialogLayout.findViewById(R.id.activity_setup_checkkludge);
 		final VolumeSettings settings = new VolumeSettings(this);
 		pluggedBar.setProgress((int)(settings.getPluggedLevel() * 100));
 		unpluggedBar.setProgress((int)(settings.getUnpluggedLevel() * 100));
 		muteBox.setChecked(settings.getMuteOnPlug());
-		hackButton.setChecked(settings.getGBreadWorkaround());
 		builder.setView(dialogLayout);
 		builder.setPositiveButton(R.string.set_levels, new OnClickListener()
 		{
@@ -59,7 +57,6 @@ public final class SetupActivity extends Activity
 				settings.setPluggedLevel(pluggedBar.getProgress() / 100f);
 				settings.setUnpluggedLevel(unpluggedBar.getProgress() / 100f);
 				settings.setMuteOnPlug(muteBox.isChecked());
-				settings.setGBreadWorkaround(hackButton.isChecked());
 				startService(serviceIntent);
 				finish();
 			}

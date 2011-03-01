@@ -23,8 +23,6 @@ import android.preference.PreferenceManager;
 
 final class VolumeSettings
 {
-	private static final String HACK = "hack";
-
 	private static final String MUTE_WHEN_PLUGGED = "muteWhenPlugged";
 
 	private static final String OLD_RINGER = "oldRinger";
@@ -85,18 +83,6 @@ final class VolumeSettings
 	{
 		Editor editPrefs = getSharedPrefs().edit();
 		editPrefs.putBoolean(MUTE_WHEN_PLUGGED, mute);
-		editPrefs.commit();
-	}
-
-	public boolean getGBreadWorkaround()
-	{
-		return getSharedPrefs().getBoolean(HACK, false);
-	}
-
-	public void setGBreadWorkaround(boolean hack)
-	{
-		Editor editPrefs = getSharedPrefs().edit();
-		editPrefs.putBoolean(HACK, hack);
 		editPrefs.commit();
 	}
 
