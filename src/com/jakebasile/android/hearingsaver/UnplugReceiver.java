@@ -1,5 +1,5 @@
 /* 
- * Copyright 2010 Jake Basile
+ * Copyright 2010-2011 Jake Basile
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,33 +29,36 @@ public class UnplugReceiver extends BroadcastReceiver
 {
 	private static UnplugReceiver instance;
 
-	private boolean isFirst;
+	private boolean ignoreNext;
 
 	private UnplugReceiver()
 	{
 	}
 
+	/**
+	 * Get the UnplugReceiver singleton.
+	 */
 	public static UnplugReceiver getInstance()
 	{
 		if(instance == null)
 		{
 			instance = new UnplugReceiver();
 		}
-		instance.isFirst = true;
 		return instance;
+	}
+
+	/**
+	 * Tell the receiver to ignore its next broadcast.
+	 */
+	public void setIgnoreNext()
+	{
+		ignoreNext = true;
 	}
 
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-		// This receiver gets called when it is registered. This means that
-		// when the user starts the service for the first time, reboots, or when the service is destroyed
-		// and restarted by the system, their volume will be set. Aside from being unintended behavior,
-		// it also causes their "old mode" to be overwritten, which means that if they are already
-		// plugged in (and the ringer is muted), their old mode will be saved as silent and the ringer will
-		// *not* be turned back on when they unplug. To prevent this, I'm using a member variable to record
-		// if it is the first try or not.
-		if(!isFirst)
+		if(!ignoreNext)
 		{
 			int state = intent.getIntExtra("state", -1);
 			AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -90,7 +93,7 @@ public class UnplugReceiver extends BroadcastReceiver
 		}
 		else
 		{
-			isFirst = false;
+			ignoreNext = false;
 		}
 	}
 }
