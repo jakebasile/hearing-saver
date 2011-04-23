@@ -1,5 +1,5 @@
 /* 
- * Copyright 2010 Jake Basile
+ * Copyright 2010-2011 Jake Basile
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,15 @@ public class RegistrationService extends Service
 	public void onCreate()
 	{
 		super.onCreate();
-		receiver = UnplugReceiver.getInstance();
-		registerReceiver(receiver, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+		// see if there is a saved sticky intent.
+		Intent previousIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+		// if there is, tell the receiver to ignore it.
+		if(previousIntent != null)
+		{
+			UnplugReceiver.getInstance().setIgnoreNext();
+		}
+		// set up the receiver.
+		registerReceiver(UnplugReceiver.getInstance(), new IntentFilter(Intent.ACTION_HEADSET_PLUG));
 	}
 
 	@Override
