@@ -15,9 +15,9 @@
    limitations under the License.
 -->
 <manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.jakebasile.android.hearingsaver"
-	xmlns:android="http://schemas.android.com/apk/res/android" 
-	android:versionName="1.6" 
+	android:versionName="1.6"
 	android:versionCode="8">
 	<application
 		android:icon="@drawable/launcher_icon"
@@ -47,8 +47,6 @@
 	</application>
 	<uses-sdk
 		android:minSdkVersion="6"/>
-	<uses-permission
-		android:name="android.permission.BLUETOOTH"/>
 	<uses-permission
 		android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 	<uses-permission
