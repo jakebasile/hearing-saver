@@ -2,4 +2,4 @@ syntax: glob
 bin/*
 gen/*
 .settings/
-*/Thumbs.db
+**Thumbs.db
