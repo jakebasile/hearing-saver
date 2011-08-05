@@ -17,38 +17,43 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.jakebasile.android.hearingsaver"
-	android:versionName="1.7"
+	android:versionName="2"
 	android:versionCode="9">
 	<application
 		android:icon="@drawable/launcher_icon"
 		android:label="@string/app_name"
 		android:theme="@android:style/Theme.NoDisplay"
-		android:description="@string/app_description">
+		android:description="@string/app_description"
+		android:allowBackup="true"
+		android:backupAgent="Backerupper">
+		<meta-data
+			android:name="com.google.android.backup.api_key"
+			android:value="AEdPqrEAAAAINb2GKG6qggCgvS5WHdQIJWaApPRbtIVN8Wm6dg" />
 		<activity
 			android:name="SetupActivity">
 			<intent-filter>
 				<action
-					android:name="android.intent.action.MAIN"/>
+					android:name="android.intent.action.MAIN" />
 				<category
-					android:name="android.intent.category.LAUNCHER"/>
+					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<service
-			android:name="RegistrationService"/>
+			android:name="RegistrationService" />
 		<receiver
 			android:name="BootReceiver">
 			<intent-filter>
 				<action
-					android:name="android.intent.action.BOOT_COMPLETED"/>
+					android:name="android.intent.action.BOOT_COMPLETED" />
 			</intent-filter>
 		</receiver>
 		<receiver
-			android:name="UnplugReceiver"/>
+			android:name="UnplugReceiver" />
 	</application>
 	<uses-sdk
-		android:minSdkVersion="6"/>
+		android:minSdkVersion="8" />
 	<uses-permission
-		android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+		android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 	<uses-permission
-		android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+		android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 </manifest>
