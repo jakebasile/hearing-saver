@@ -1,12 +1,9 @@
-/* 
+/*
  * Copyright 2010-2011 Jake Basile
- *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,14 +31,16 @@ public class RegistrationService extends Service
 	{
 		super.onCreate();
 		// see if there is a saved sticky intent.
-		Intent previousIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+		Intent previousIntent = registerReceiver(null, new IntentFilter(
+			Intent.ACTION_HEADSET_PLUG));
 		// if there is, tell the receiver to ignore it.
 		if(previousIntent != null)
 		{
 			UnplugReceiver.getInstance().setIgnoreNext();
 		}
 		// set up the receiver.
-		registerReceiver(UnplugReceiver.getInstance(), new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+		registerReceiver(UnplugReceiver.getInstance(), new IntentFilter(
+			Intent.ACTION_HEADSET_PLUG));
 	}
 
 	@Override
@@ -53,6 +52,11 @@ public class RegistrationService extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
+		VolumeSettings settings = new VolumeSettings(this);
+		if(!settings.getEnabled())
+		{
+			stopSelf();
+		}
 		return Service.START_STICKY;
 	}
 
@@ -60,9 +64,20 @@ public class RegistrationService extends Service
 	public void onDestroy()
 	{
 		super.onDestroy();
-		// Be sure and unregister the receiver when the service is destroyed. This usually means
-		// the service is being killed by the system, and it will be restarted again momentarily.
-		// if we don't unregister, sometimes multiple instances of the receiver get registered.
-		unregisterReceiver(receiver);
+		// Be sure and unregister the receiver when the service is destroyed. This usually
+		// means the service is being killed by the system, and it will be restarted again
+		// momentarily. if we don't unregister, sometimes multiple instances of the
+		// receiver getregistered.
+		try
+		{
+			if(receiver != null)
+			{
+				unregisterReceiver(receiver);
+			}
+		}
+		catch(IllegalArgumentException e)
+		{
+			// eat this exception.
+		}
 	}
 }

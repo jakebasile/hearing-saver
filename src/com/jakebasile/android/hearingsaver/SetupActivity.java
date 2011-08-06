@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 /**
  * Handles setup for the hearing saver app, and will start the registration service.
@@ -55,8 +56,11 @@ public final class SetupActivity extends Activity
 				settings.setPluggedLevel(pluggedBar.getProgress() / 100f);
 				settings.setUnpluggedLevel(unpluggedBar.getProgress() / 100f);
 				settings.setMuteOnPlug(muteBox.isChecked());
+				settings.setEnabled(true);
 				BackupManager.dataChanged("com.jakebasile.android.hearingsaver");
 				startService(serviceIntent);
+				Toast.makeText(SetupActivity.this, R.string.enabled_toast,
+					Toast.LENGTH_SHORT).show();
 				finish();
 			}
 		});
@@ -65,6 +69,22 @@ public final class SetupActivity extends Activity
 			@Override
 			public void onCancel(DialogInterface dialog)
 			{
+				finish();
+			}
+		});
+		builder.setNegativeButton(R.string.disable, new OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface arg0, int arg1)
+			{
+				settings.setPluggedLevel(pluggedBar.getProgress() / 100f);
+				settings.setUnpluggedLevel(unpluggedBar.getProgress() / 100f);
+				settings.setMuteOnPlug(muteBox.isChecked());
+				settings.setEnabled(false);
+				BackupManager.dataChanged("com.jakebasile.android.hearingsaver");
+				startService(serviceIntent);
+				Toast.makeText(SetupActivity.this, R.string.disabled_toast,
+					Toast.LENGTH_SHORT).show();
 				finish();
 			}
 		});

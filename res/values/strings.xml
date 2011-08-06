@@ -26,7 +26,13 @@
 	<string
 		name="textunplugged_text">Volume to set when headphone jack is unplugged:</string>
 	<string
-		name="set_levels">Set Levels</string>
+		name="set_levels">Enable</string>
 	<string
 		name="app_name">Hearing Saver</string>
+	<string
+		name="disable">Disable</string>
+	<string
+		name="disabled_toast">Hearing Saver is now turned off.</string>
+	<string
+		name="enabled_toast">Hearing Saver is now turned on.</string>
 </resources>

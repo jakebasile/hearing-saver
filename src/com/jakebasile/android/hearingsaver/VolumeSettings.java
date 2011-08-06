@@ -28,11 +28,25 @@ final class VolumeSettings
 
 	private static final String UNPLUGGED = "unplugged";
 
+	private static final String ENABLED = "enabled";
+
 	private Context context;
 
 	public VolumeSettings(Context context)
 	{
 		this.context = context;
+	}
+
+	public void setEnabled(boolean enabled)
+	{
+		Editor editPrefs = getSharedPrefs().edit();
+		editPrefs.putBoolean(ENABLED, enabled);
+		editPrefs.commit();
+	}
+
+	public boolean getEnabled()
+	{
+		return getSharedPrefs().getBoolean(ENABLED, true);
 	}
 
 	public void setUnpluggedLevel(float level)
