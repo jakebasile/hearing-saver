@@ -1,5 +1,4 @@
-syntax: glob
-bin/*
-gen/*
-.settings/
-**Thumbs.db
+syntax: regexp
+bin/.*
+gen/.*
+.*Thumbs.db
