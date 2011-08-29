@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+	<!-- 
    Copyright 2010-2011 Jake Basile
 
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,4 +35,6 @@
 		name="disabled_toast">Hearing Saver is now turned off.</string>
 	<string
 		name="enabled_toast">Hearing Saver is now turned on.</string>
+	<string
+		name="bluetooth_detection">Bluetooth Detection</string>
 </resources>
