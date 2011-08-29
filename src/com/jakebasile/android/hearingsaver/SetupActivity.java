@@ -47,10 +47,12 @@ public final class SetupActivity extends Activity
 		final SeekBar pluggedBar = (SeekBar)dialogLayout.findViewById(R.id.activity_setup_seekplugged);
 		final SeekBar unpluggedBar = (SeekBar)dialogLayout.findViewById(R.id.activity_setup_seekunplugged);
 		final CheckBox muteBox = (CheckBox)dialogLayout.findViewById(R.id.activity_setup_checkmute);
+		final CheckBox btBox = (CheckBox)dialogLayout.findViewById(R.id.activity_setup_btenabled);
 		final VolumeSettings settings = new VolumeSettings(this);
 		pluggedBar.setProgress((int)(settings.getPluggedLevel() * 100));
 		unpluggedBar.setProgress((int)(settings.getUnpluggedLevel() * 100));
 		muteBox.setChecked(settings.getMuteOnPlug());
+		btBox.setChecked(settings.getBluetoothDetectionEnabled());
 		builder.setView(dialogLayout);
 		builder.setPositiveButton(R.string.set_levels, new OnClickListener()
 		{
@@ -60,6 +62,7 @@ public final class SetupActivity extends Activity
 				settings.setPluggedLevel(pluggedBar.getProgress() / 100f);
 				settings.setUnpluggedLevel(unpluggedBar.getProgress() / 100f);
 				settings.setMuteOnPlug(muteBox.isChecked());
+				settings.setBluetoothDetectionEnabled(btBox.isChecked());
 				settings.setEnabled(true);
 				callDataChanged();
 				startService(serviceIntent);
@@ -79,11 +82,12 @@ public final class SetupActivity extends Activity
 		builder.setNegativeButton(R.string.disable, new OnClickListener()
 		{
 			@Override
-			public void onClick(DialogInterface arg0, int arg1)
+			public void onClick(DialogInterface dialog, int which)
 			{
 				settings.setPluggedLevel(pluggedBar.getProgress() / 100f);
 				settings.setUnpluggedLevel(unpluggedBar.getProgress() / 100f);
 				settings.setMuteOnPlug(muteBox.isChecked());
+				settings.setBluetoothDetectionEnabled(btBox.isChecked());
 				settings.setEnabled(false);
 				callDataChanged();
 				startService(serviceIntent);

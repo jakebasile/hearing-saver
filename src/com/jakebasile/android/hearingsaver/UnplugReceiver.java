@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2010-2011 Jake Basile
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -58,7 +58,7 @@ public class UnplugReceiver extends BroadcastReceiver
 		ignoreNext = true;
 	}
 
-	private int processIntent(Context context, Intent intent)
+	private int processIntent(Context context, Intent intent, boolean btEnabled)
 	{
 		int state = -1;
 		if(intent.getAction().equals(Intent.ACTION_HEADSET_PLUG))
@@ -68,19 +68,23 @@ public class UnplugReceiver extends BroadcastReceiver
 		else
 		{
 			// it's a bluetooth broadcast.
-			BluetoothDevice device = (BluetoothDevice)intent.getExtras().get(
-				BluetoothDevice.EXTRA_DEVICE);
-			BluetoothClass btClass = device.getBluetoothClass();
-			int classId = btClass.getMajorDeviceClass();
-			if(classId == BluetoothClass.Device.Major.AUDIO_VIDEO)
+			if(btEnabled)
 			{
-				if(intent.getAction().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
+				BluetoothDevice device = (BluetoothDevice)intent.getExtras().get(
+					BluetoothDevice.EXTRA_DEVICE);
+				BluetoothClass btClass = device.getBluetoothClass();
+				int classId = btClass.getMajorDeviceClass();
+				if(classId == BluetoothClass.Device.Major.AUDIO_VIDEO)
 				{
-					state = 1;
-				}
-				else if(intent.getAction().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED))
-				{
-					state = 0;
+					if(intent.getAction().equals(BluetoothDevice.ACTION_ACL_CONNECTED))
+					{
+						state = 1;
+					}
+					else if(intent.getAction().equals(
+						BluetoothDevice.ACTION_ACL_DISCONNECTED))
+					{
+						state = 0;
+					}
 				}
 			}
 		}
@@ -95,7 +99,8 @@ public class UnplugReceiver extends BroadcastReceiver
 			AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 			int maxVol = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 			VolumeSettings settings = new VolumeSettings(context);
-			int state = processIntent(context, intent);
+			int state = processIntent(context, intent,
+				settings.getBluetoothDetectionEnabled());
 			switch(state)
 			{
 				// unplugged.

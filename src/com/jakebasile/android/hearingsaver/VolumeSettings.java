@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2010-2011 Jake Basile
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,6 +32,8 @@ final class VolumeSettings
 	private static final String UNPLUGGED = "unplugged";
 
 	private static final String ENABLED = "enabled";
+
+	private static final String BLUETOOTH_DETECTION = "btDetection";
 
 	private Context context;
 
@@ -97,6 +99,18 @@ final class VolumeSettings
 	{
 		Editor editPrefs = getSharedPrefs().edit();
 		editPrefs.putBoolean(MUTE_WHEN_PLUGGED, mute);
+		editPrefs.commit();
+	}
+
+	public boolean getBluetoothDetectionEnabled()
+	{
+		return getSharedPrefs().getBoolean(BLUETOOTH_DETECTION, true);
+	}
+
+	public void setBluetoothDetectionEnabled(boolean enabled)
+	{
+		Editor editPrefs = getSharedPrefs().edit();
+		editPrefs.putBoolean(BLUETOOTH_DETECTION, enabled);
 		editPrefs.commit();
 	}
 
