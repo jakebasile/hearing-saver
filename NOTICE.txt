@@ -1,2 +1,3 @@
 Copyright 2010-2011 Jake Basile (http://jakebasile.com)
-Source @ http://code.jakebasile.com/hearing-saver/
+Source @ https://github.com/jakebasile/hearing-saver
+

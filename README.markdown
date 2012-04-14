@@ -5,6 +5,7 @@ Thanks for checking out **Hearing Saver**. I wrote this app because many times I
 The app is available to download from the [Android Market](https://market.android.com/details?id=com.jakebasile.android.hearingsaver).
 
 ##How To Use
+
 I've tried to keep this app very simple, to match its very simple purpose. When you first download the app, or update it, you must open it at least once to configure it and to start the background service that allows it to work. You can alternatively restart your phone, although you don't have to, because the app will start itself at boot after it is installed.
 
 The configuration has two sliders and two checkboxes: 
@@ -15,7 +16,6 @@ The configuration has two sliders and two checkboxes:
 After setting it up, theres nothing more you need to do. The app will run a small service in the background and set your volume presets when the headset is plugged in or unplugged.
 
 ##Issues
-To report an issue, you can [email me](http://www.google.com/recaptcha/mailhide/d?k=016hBFgN95YMEuOwfpt97iww==&c=z1OWD6R3rsziV3G1jCjmQ1rPv74cyi1qS2zRrpztTMc=) to try to solve it or create a new [issue](http://code.jakebasile.com/hearing-saver/issues) - after checking to see that it isn't already there. I will try to fix it soon, but please consider that this project is not my day job. If you really want something fixed and you know how to code, you can try doing it yourself and getting into contact with me to add in your changes.
 
-##A Brief Note on Convoluted Changelogs
-I also started this project to teach myself how to use a DVCS such as Mercurial. I have no experience with these and have made some mistakes. Try to ignore them and let me sweep them under the rug, ok?
+To report an issue, you can create a new [issue](https://github.com/jakebasile/hearing-saver/issues) - after checking to see that it isn't already there. I will try to fix it soon, but please consider that this project is not my day job. If you really want something fixed and you know how to code, you can try doing it yourself and getting into contact with me to add in your changes.
+
