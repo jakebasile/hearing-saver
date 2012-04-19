@@ -128,8 +128,8 @@ public class UnplugReceiver extends BroadcastReceiver
 				{
 					if(settings.getSaveUnplugLevel())
 					{
-						float oldVol = am.getStreamVolume(AudioManager.STREAM_MUSIC) * 100f / maxVol;
-						float oldVolRinger = am.getStreamVolume(AudioManager.STREAM_RING) * 100f / maxVolRinger;
+						float oldVol = (float) am.getStreamVolume(AudioManager.STREAM_MUSIC) / maxVol;
+						float oldVolRinger = (float) am.getStreamVolume(AudioManager.STREAM_RING) / maxVolRinger;
 						
 						settings.setUnpluggedLevel(oldVol);
 						settings.setUnpluggedLevelRinger(oldVolRinger);
