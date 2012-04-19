@@ -30,8 +30,14 @@ final class VolumeSettings
 	private static final String PLUGGED = "plugged";
 
 	private static final String UNPLUGGED = "unplugged";
+	
+	private static final String PLUGGED_RINGER = "plugged_ringer";
+
+	private static final String UNPLUGGED_RINGER = "unplugged_ringer";
 
 	private static final String ENABLED = "enabled";
+	
+	private static final String SAVE_UNPLUG_LEVEL = "save_unplug_level";
 
 	private static final String BLUETOOTH_DETECTION = "btDetection";
 
@@ -65,11 +71,35 @@ final class VolumeSettings
 	{
 		return getSharedPrefs().getFloat(UNPLUGGED, 0f);
 	}
+	
+	public void setUnpluggedLevelRinger(float level)
+	{
+		Editor editPrefs = getSharedPrefs().edit();
+		editPrefs.putFloat(UNPLUGGED_RINGER, level);
+		editPrefs.commit();
+	}
+
+	public float getUnpluggedLevelRinger()
+	{
+		return getSharedPrefs().getFloat(UNPLUGGED_RINGER, .25f);
+	}
 
 	public void setPluggedLevel(float level)
 	{
 		Editor editPrefs = getSharedPrefs().edit();
 		editPrefs.putFloat(PLUGGED, level);
+		editPrefs.commit();
+	}
+
+	public float getPluggedLevelRinger()
+	{
+		return getSharedPrefs().getFloat(PLUGGED_RINGER, 1f);
+	}
+	
+	public void setPluggedLevelRinger(float level)
+	{
+		Editor editPrefs = getSharedPrefs().edit();
+		editPrefs.putFloat(PLUGGED_RINGER, level);
 		editPrefs.commit();
 	}
 
@@ -99,6 +129,18 @@ final class VolumeSettings
 	{
 		Editor editPrefs = getSharedPrefs().edit();
 		editPrefs.putBoolean(MUTE_WHEN_PLUGGED, mute);
+		editPrefs.commit();
+	}
+	
+	public boolean getSaveUnplugLevel()
+	{
+		return getSharedPrefs().getBoolean(SAVE_UNPLUG_LEVEL, false);
+	}
+
+	public void setSaveUnplugLevel(boolean save)
+	{
+		Editor editPrefs = getSharedPrefs().edit();
+		editPrefs.putBoolean(SAVE_UNPLUG_LEVEL, save);
 		editPrefs.commit();
 	}
 
