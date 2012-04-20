@@ -37,4 +37,7 @@
 		name="enabled_toast">Hearing Saver is now turned on.</string>
 	<string
 		name="bluetooth_detection">Bluetooth Detection</string>
+	<string name="ring_vol">Ringer Volume</string>
+	<string name="media_vol">Media Volume</string>
+	<string name="save_unplug_vol">Save last unplugged volume</string>
 </resources>

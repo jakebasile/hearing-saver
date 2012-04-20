@@ -98,6 +98,7 @@ public class UnplugReceiver extends BroadcastReceiver
 		{
 			AudioManager am = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 			int maxVol = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+			int maxVolRinger = am.getStreamMaxVolume(AudioManager.STREAM_RING);
 			VolumeSettings settings = new VolumeSettings(context);
 			int state = processIntent(context, intent,
 				settings.getBluetoothDetectionEnabled());
@@ -107,24 +108,46 @@ public class UnplugReceiver extends BroadcastReceiver
 				case 0:
 				{
 					int newVol = (int)(maxVol * settings.getUnpluggedLevel());
+					int newVolRinger = (int)(maxVolRinger * 
+							settings.getUnpluggedLevelRinger());
 					am.setStreamVolume(AudioManager.STREAM_MUSIC, newVol,
 						AudioManager.FLAG_SHOW_UI);
 					if(settings.getMuteOnPlug())
 					{
 						am.setRingerMode(settings.getRinger());
 					}
+					else
+					{
+						am.setStreamVolume(AudioManager.STREAM_RING, newVolRinger,
+								AudioManager.FLAG_SHOW_UI);
+					}
 					break;
 				}
 				// plugged in
 				case 1:
 				{
+					if(settings.getSaveUnplugLevel())
+					{
+						float oldVol = (float) am.getStreamVolume(AudioManager.STREAM_MUSIC) / maxVol;
+						float oldVolRinger = (float) am.getStreamVolume(AudioManager.STREAM_RING) / maxVolRinger;
+						
+						settings.setUnpluggedLevel(oldVol);
+						settings.setUnpluggedLevelRinger(oldVolRinger);
+					}
+					
 					int newVol = (int)(maxVol * settings.getPluggedLevel());
+					int newVolRinger = (int)(maxVolRinger * settings.getPluggedLevelRinger());
 					am.setStreamVolume(AudioManager.STREAM_MUSIC, newVol,
 						AudioManager.FLAG_SHOW_UI);
 					if(settings.getMuteOnPlug())
 					{
 						settings.setRinger(am.getRingerMode());
 						am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+					}
+					else
+					{
+						am.setStreamVolume(AudioManager.STREAM_RING, newVolRinger,
+								AudioManager.FLAG_SHOW_UI);
 					}
 					break;
 				}

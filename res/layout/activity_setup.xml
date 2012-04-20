@@ -14,12 +14,33 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical"
-	android:padding="8dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="8dp" >
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radio_button_media"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true" 
+            android:text="@string/media_vol" />
+
+        <RadioButton
+            android:id="@+id/radio_button_ring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ring_vol"/>
+
+    </RadioGroup>
+
 	<TextView
 		android:id="@+id/activity_setup_textplugged"
 		android:layout_width="wrap_content"
@@ -50,6 +71,13 @@
 		android:id="@+id/activity_setup_checkmute"
 		android:layout_height="wrap_content"
 		android:text="@string/mute_ringer_and_notifications" />
+
+	<CheckBox
+	    android:id="@+id/check_box_save_unplug_vol"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/save_unplug_vol" />
+
 	<CheckBox
 		android:text="@string/bluetooth_detection"
 		android:id="@+id/activity_setup_btenabled"
