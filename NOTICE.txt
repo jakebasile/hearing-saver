@@ -1,3 +1,3 @@
-Copyright 2010-2011 Jake Basile (http://jakebasile.com)
+Copyright 2010-2012 Jake Basile (http://jakebasile.com) and Contributors
 Source @ https://github.com/jakebasile/hearing-saver
-
+Contributors List @ https://github.com/jakebasile/hearing-saver/contributors
