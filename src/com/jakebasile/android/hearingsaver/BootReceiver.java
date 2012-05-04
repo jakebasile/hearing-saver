@@ -1,5 +1,5 @@
-/* 
- * Copyright 2010-2011 Jake Basile
+/*
+ * Copyright 2010-2012 Jake Basile and Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,11 +25,12 @@ import android.content.Intent;
  */
 public class BootReceiver extends BroadcastReceiver
 {
-	@Override
-	public void onReceive(Context context, Intent intent)
-	{
-		Intent serviceIntent = new Intent();
-		serviceIntent.setClassName(context.getPackageName(), RegistrationService.class.getName());
-		context.startService(serviceIntent);
-	}
+    @Override
+    public void onReceive(Context context, Intent intent)
+    {
+        Intent serviceIntent = new Intent();
+        serviceIntent.setClassName(context.getPackageName(), RegistrationService.class
+            .getName());
+        context.startService(serviceIntent);
+    }
 }
