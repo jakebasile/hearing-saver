@@ -15,29 +15,18 @@
    limitations under the License.
 -->
 <resources>
-	<string
-		name="hearing_saver_is_running">Hearing Saver is Running</string>
-	<string
-		name="mute_ringer_and_notifications">Mute Ringer and Notifications</string>
-	<string
-		name="app_description">Automatically resets media volume to a predetermined level when the headset is plugged or unplugged.</string>
-	<string
-		name="textplugged_text">Volume to set when headphone jack is plugged:</string>
-	<string
-		name="textunplugged_text">Volume to set when headphone jack is unplugged:</string>
-	<string
-		name="set_levels">Enable</string>
-	<string
-		name="app_name">Hearing Saver</string>
-	<string
-		name="disable">Disable</string>
-	<string
-		name="disabled_toast">Hearing Saver is now turned off.</string>
-	<string
-		name="enabled_toast">Hearing Saver is now turned on.</string>
-	<string
-		name="bluetooth_detection">Bluetooth Detection</string>
-	<string name="ring_vol">Ringer Volume</string>
-	<string name="media_vol">Media Volume</string>
-	<string name="save_unplug_vol">Save last unplugged volume</string>
+    <string name="hearing_saver_is_running">Hearing Saver is Running</string>
+    <string name="mute_ringer_and_notifications">Mute Ringer and Notifications</string>
+    <string name="app_description">Automatically resets media volume to a predetermined level when the headset is plugged or unplugged.</string>
+    <string name="textplugged_text">Volume to set when headphone jack is plugged:</string>
+    <string name="textunplugged_text">Volume to set when headphone jack is unplugged:</string>
+    <string name="set_levels">Enable</string>
+    <string name="app_name">Hearing Saver</string>
+    <string name="disable">Disable</string>
+    <string name="disabled_toast">Hearing Saver is now turned off.</string>
+    <string name="enabled_toast">Hearing Saver is now turned on.</string>
+    <string name="bluetooth_detection">Bluetooth Detection</string>
+    <string name="ring_vol">Ringer Volume</string>
+    <string name="media_vol">Media Volume</string>
+    <string name="save_unplug_vol">Save last unplugged volume</string>
 </resources>
