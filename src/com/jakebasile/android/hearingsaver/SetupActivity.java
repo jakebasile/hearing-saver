@@ -83,21 +83,27 @@ public final class SetupActivity extends Activity
                 switch(checkedId)
                 {
                     case R.id.radio_button_media:
-                    settings.setPluggedLevelRinger(pluggedBar.getProgress() / 100f);
-                    settings.setUnpluggedLevelRinger(unpluggedBar.getProgress() / 100f);
-                    pluggedBar.setProgress((int)(settings.getPluggedLevel() * 100));
-                    unpluggedBar.setProgress((int)(settings.getUnpluggedLevel() * 100));
-                    break;
+                    {
+                        settings.setPluggedLevelRinger(pluggedBar.getProgress() / 100f);
+                        settings.setUnpluggedLevelRinger(unpluggedBar.getProgress() / 100f);
+                        pluggedBar.setProgress((int)(settings.getPluggedLevel() * 100));
+                        unpluggedBar.setProgress((int)(settings.getUnpluggedLevel() * 100));
+                        break;
+                    }
                     case R.id.radio_button_ring:
-                    settings.setPluggedLevel(pluggedBar.getProgress() / 100f);
-                    settings.setUnpluggedLevel(unpluggedBar.getProgress() / 100f);
-                    pluggedBar.setProgress((int)(settings.getPluggedLevelRinger() * 100));
-                    unpluggedBar
-                        .setProgress((int)(settings.getUnpluggedLevelRinger() * 100));
-                    break;
+                    {
+                        settings.setPluggedLevel(pluggedBar.getProgress() / 100f);
+                        settings.setUnpluggedLevel(unpluggedBar.getProgress() / 100f);
+                        pluggedBar.setProgress((int)(settings.getPluggedLevelRinger() * 100));
+                        unpluggedBar
+                            .setProgress((int)(settings.getUnpluggedLevelRinger() * 100));
+                        break;
+                    }
                     default:
-                    throw new IllegalStateException("Wrong id for radio button: " +
-                        checkedId);
+                    {
+                        throw new IllegalStateException("Wrong id for radio button: " +
+                            checkedId);
+                    }
                 }
             }
         });
