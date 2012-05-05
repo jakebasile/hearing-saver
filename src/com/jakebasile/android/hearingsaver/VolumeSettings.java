@@ -23,8 +23,6 @@ import android.preference.PreferenceManager;
 
 final class VolumeSettings
 {
-    private static final String MUTE_WHEN_PLUGGED = "muteWhenPlugged";
-
     private static final String OLD_RINGER = "oldRinger";
 
     private static final String PLUGGED = "plugged";
@@ -40,6 +38,8 @@ final class VolumeSettings
     private static final String SAVE_UNPLUG_LEVEL = "save_unplug_level";
 
     private static final String BLUETOOTH_DETECTION = "btDetection";
+
+    private static final String RINGER_CONTROL = "ringerControl";
 
     private Context context;
 
@@ -120,15 +120,15 @@ final class VolumeSettings
         return getSharedPrefs().getInt(OLD_RINGER, AudioManager.RINGER_MODE_NORMAL);
     }
 
-    public boolean getMuteOnPlug()
+    public boolean getEnableRingerControl()
     {
-        return getSharedPrefs().getBoolean(MUTE_WHEN_PLUGGED, false);
+        return getSharedPrefs().getBoolean(RINGER_CONTROL, false);
     }
 
-    public void setMuteOnPlug(boolean mute)
+    public void setEnableRingerControl(boolean enable)
     {
         Editor editPrefs = getSharedPrefs().edit();
-        editPrefs.putBoolean(MUTE_WHEN_PLUGGED, mute);
+        editPrefs.putBoolean(RINGER_CONTROL, enable);
         editPrefs.commit();
     }
 

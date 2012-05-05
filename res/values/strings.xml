@@ -16,7 +16,7 @@
 -->
 <resources>
     <string name="hearing_saver_is_running">Hearing Saver is Running</string>
-    <string name="mute_ringer_and_notifications">Mute Ringer and Notifications</string>
+    <string name="enable_ringer_volume">Enable ringer volume control</string>
     <string name="app_description">Automatically resets media volume to a predetermined level when the headset is plugged or unplugged.</string>
     <string name="textplugged_text">Volume to set when headphone jack is plugged:</string>
     <string name="textunplugged_text">Volume to set when headphone jack is unplugged:</string>

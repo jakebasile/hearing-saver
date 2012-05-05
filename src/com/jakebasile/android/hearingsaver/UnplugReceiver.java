@@ -113,11 +113,7 @@ public class UnplugReceiver extends BroadcastReceiver
                         settings.getUnpluggedLevelRinger());
                     am.setStreamVolume(AudioManager.STREAM_MUSIC, newVol,
                         AudioManager.FLAG_SHOW_UI);
-                    if(settings.getMuteOnPlug())
-                    {
-                        am.setRingerMode(settings.getRinger());
-                    }
-                    else
+                    if(settings.getEnableRingerControl())
                     {
                         am.setStreamVolume(AudioManager.STREAM_RING, newVolRinger,
                             AudioManager.FLAG_SHOW_UI);
@@ -142,12 +138,7 @@ public class UnplugReceiver extends BroadcastReceiver
                         (int)(maxVolRinger * settings.getPluggedLevelRinger());
                     am.setStreamVolume(AudioManager.STREAM_MUSIC, newVol,
                         AudioManager.FLAG_SHOW_UI);
-                    if(settings.getMuteOnPlug())
-                    {
-                        settings.setRinger(am.getRingerMode());
-                        am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-                    }
-                    else
+                    if(settings.getEnableRingerControl())
                     {
                         am.setStreamVolume(AudioManager.STREAM_RING, newVolRinger,
                             AudioManager.FLAG_SHOW_UI);

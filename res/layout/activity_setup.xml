@@ -66,9 +66,9 @@
         android:max="100" />
     <CheckBox
         android:layout_width="wrap_content"
-        android:id="@+id/activity_setup_checkmute"
+        android:id="@+id/activity_setup_checkringer"
         android:layout_height="wrap_content"
-        android:text="@string/mute_ringer_and_notifications" />
+        android:text="@string/enable_ringer_volume" />
     <CheckBox
         android:id="@+id/check_box_save_unplug_vol"
         android:layout_width="wrap_content"

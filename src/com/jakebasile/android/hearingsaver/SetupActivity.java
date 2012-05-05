@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -52,14 +53,18 @@ public final class SetupActivity extends Activity
             (SeekBar)dialogLayout.findViewById(R.id.activity_setup_seekplugged);
         final SeekBar unpluggedBar =
             (SeekBar)dialogLayout.findViewById(R.id.activity_setup_seekunplugged);
-        final CheckBox muteBox =
-            (CheckBox)dialogLayout.findViewById(R.id.activity_setup_checkmute);
+        final CheckBox ringerBox =
+            (CheckBox)dialogLayout.findViewById(R.id.activity_setup_checkringer);
         final CheckBox btBox =
             (CheckBox)dialogLayout.findViewById(R.id.activity_setup_btenabled);
         final RadioGroup radioGroup =
             (RadioGroup)dialogLayout.findViewById(R.id.radio_group);
         final CheckBox savePluggedVolCheckBox =
             (CheckBox)dialogLayout.findViewById(R.id.check_box_save_unplug_vol);
+        final RadioButton radioMedia = 
+            (RadioButton)dialogLayout.findViewById(R.id.radio_button_media);
+        final RadioButton radioRing = 
+            (RadioButton)dialogLayout.findViewById(R.id.radio_button_ring);
         savePluggedVolCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
         {
             @Override
@@ -99,7 +104,20 @@ public final class SetupActivity extends Activity
         pluggedBar.setProgress((int)(settings.getPluggedLevel() * 100));
         unpluggedBar.setProgress((int)(settings.getUnpluggedLevel() * 100));
         savePluggedVolCheckBox.setChecked(settings.getSaveUnplugLevel());
-        muteBox.setChecked(settings.getMuteOnPlug());
+        ringerBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton btn, boolean isChecked)
+            {
+                radioRing.setEnabled(isChecked);
+                if(!isChecked && radioRing.isChecked())
+                {
+                    radioMedia.setChecked(true);
+                }
+            }
+        });
+        ringerBox.setChecked(settings.getEnableRingerControl());
+        radioRing.setEnabled(settings.getEnableRingerControl());
         btBox.setChecked(settings.getBluetoothDetectionEnabled());
         builder.setView(dialogLayout);
         builder.setPositiveButton(R.string.set_levels, new OnClickListener()
@@ -117,7 +135,7 @@ public final class SetupActivity extends Activity
                     settings.setPluggedLevel(pluggedBar.getProgress() / 100f);
                     settings.setUnpluggedLevel(unpluggedBar.getProgress() / 100f);
                 }
-                settings.setMuteOnPlug(muteBox.isChecked());
+                settings.setEnableRingerControl(ringerBox.isChecked());
                 settings.setBluetoothDetectionEnabled(btBox.isChecked());
                 settings.setEnabled(true);
                 callDataChanged();
@@ -140,7 +158,7 @@ public final class SetupActivity extends Activity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                settings.setMuteOnPlug(muteBox.isChecked());
+                settings.setEnableRingerControl(ringerBox.isChecked());
                 settings.setBluetoothDetectionEnabled(btBox.isChecked());
                 settings.setEnabled(false);
                 callDataChanged();
