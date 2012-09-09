@@ -49,7 +49,7 @@
         android:id="@+id/activity_setup_seekplugged"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="10sp"        
         android:max="100" />
     <TextView
         android:id="@+id/activity_setup_textunplugged"
@@ -62,7 +62,8 @@
         android:id="@+id/activity_setup_seekunplugged"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="10sp"        
+        android:paddingRight="20sp"
         android:max="100" />
     <CheckBox
         android:layout_width="wrap_content"

@@ -30,6 +30,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -107,6 +108,7 @@ public final class SetupActivity extends Activity
                 }
             }
         });
+        
         pluggedBar.setProgress((int)(settings.getPluggedLevel() * 100));
         unpluggedBar.setProgress((int)(settings.getUnpluggedLevel() * 100));
         savePluggedVolCheckBox.setChecked(settings.getSaveUnplugLevel());
@@ -125,7 +127,13 @@ public final class SetupActivity extends Activity
         ringerBox.setChecked(settings.getEnableRingerControl());
         radioRing.setEnabled(settings.getEnableRingerControl());
         btBox.setChecked(settings.getBluetoothDetectionEnabled());
-        builder.setView(dialogLayout);
+        /*
+         * Needs to be scrolable for lower resolution screens
+         */
+        ScrollView scrollingView = new ScrollView(getApplicationContext());        
+        scrollingView.addView(dialogLayout);
+        
+        builder.setView(scrollingView);
         builder.setPositiveButton(R.string.set_levels, new OnClickListener()
         {
             @Override
