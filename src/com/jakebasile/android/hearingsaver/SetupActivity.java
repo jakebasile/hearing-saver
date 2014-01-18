@@ -60,12 +60,24 @@ public final class SetupActivity extends Activity
             (CheckBox)dialogLayout.findViewById(R.id.activity_setup_btenabled);
         final RadioGroup radioGroup =
             (RadioGroup)dialogLayout.findViewById(R.id.radio_group);
+        final CheckBox savePluggedVolCheckBox =
+            (CheckBox)dialogLayout.findViewById(R.id.check_box_save_plug_vol);
         final CheckBox saveUnpluggedVolCheckBox =
             (CheckBox)dialogLayout.findViewById(R.id.check_box_save_unplug_vol);
         final RadioButton radioMedia = 
             (RadioButton)dialogLayout.findViewById(R.id.radio_button_media);
         final RadioButton radioRing = 
             (RadioButton)dialogLayout.findViewById(R.id.radio_button_ring);
+        savePluggedVolCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                boolean isChecked)
+            {
+                settings.setSavePlugLevel(isChecked);
+                pluggedBar.setEnabled(!isChecked);
+            }
+        });
         saveUnpluggedVolCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
         {
             @Override
@@ -111,6 +123,7 @@ public final class SetupActivity extends Activity
         
         pluggedBar.setProgress((int)(settings.getPluggedLevel() * 100));
         unpluggedBar.setProgress((int)(settings.getUnpluggedLevel() * 100));
+        savePluggedVolCheckBox.setChecked(settings.getSavePlugLevel());
         saveUnpluggedVolCheckBox.setChecked(settings.getSaveUnplugLevel());
         ringerBox.setOnCheckedChangeListener(new OnCheckedChangeListener()
         {

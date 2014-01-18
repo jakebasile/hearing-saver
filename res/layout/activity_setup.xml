@@ -71,6 +71,11 @@
         android:layout_height="wrap_content"
         android:text="@string/enable_ringer_volume" />
     <CheckBox
+        android:id="@+id/check_box_save_plug_vol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_plug_vol" />
+    <CheckBox
         android:id="@+id/check_box_save_unplug_vol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
