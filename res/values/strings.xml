@@ -29,4 +29,5 @@
     <string name="ring_vol">Ringer</string>
     <string name="media_vol">Media</string>
     <string name="save_unplug_vol">Save last unplugged volume</string>
+    <string name="save_plug_vol">Save last plugged volume</string>
 </resources>

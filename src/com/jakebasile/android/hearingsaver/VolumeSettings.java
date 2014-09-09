@@ -35,6 +35,8 @@ final class VolumeSettings
 
     private static final String ENABLED = "enabled";
 
+    private static final String SAVE_PLUG_LEVEL = "save_plug_level";
+
     private static final String SAVE_UNPLUG_LEVEL = "save_unplug_level";
 
     private static final String BLUETOOTH_DETECTION = "btDetection";
@@ -129,6 +131,18 @@ final class VolumeSettings
     {
         Editor editPrefs = getSharedPrefs().edit();
         editPrefs.putBoolean(RINGER_CONTROL, enable);
+        editPrefs.commit();
+    }
+
+    public boolean getSavePlugLevel()
+    {
+        return getSharedPrefs().getBoolean(SAVE_PLUG_LEVEL, false);
+    }
+
+    public void setSavePlugLevel(boolean save)
+    {
+        Editor editPrefs = getSharedPrefs().edit();
+        editPrefs.putBoolean(SAVE_PLUG_LEVEL, save);
         editPrefs.commit();
     }
 
