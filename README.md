@@ -1,8 +1,10 @@
 # Hearing Saver
 
-**DISCLAIMER**: **I am currently unable to maintain this application, as I no longer own an Android device for testing and the events I use to trigger the volume changes are not present in emulators. If you're interested in taking over maintenance, please [contact me](mailto:web@jakebasile.com).**
-
 Hearing Saver is the simple way to avoid accidentally hurting your ears when plugging in or unplugging your Android device's wired or bluetooth headset. Hearing Saver operates in the background to protect your ears automatically. It uses very little resources, and simply waits for the signal that your headset has been unplugged or plugged in. The app is available to download from the [Android Market][market]
+
+## Maintenance Disclaimer 
+
+**I am currently unable to maintain this application, as I no longer own an Android device for testing and the events I use to trigger the volume changes are not present in emulators. If you're interested in taking over maintenance, please [contact me](mailto:web@jakebasile.com).**
 
 ## Usage
 
